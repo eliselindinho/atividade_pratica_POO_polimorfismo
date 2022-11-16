@@ -41,9 +41,9 @@ class Product {
   #id = 0;
   name = "";
 
-  constructor(id, name) {
+  constructor(id, nome) {
     this.#id = id;
-    this.name = name;
+    this.name = nome;
   }
 }
 class Order {
@@ -108,14 +108,11 @@ class OrderDelivery extends Order {
     }
     this.client = cliente;
   }
-  calculateShipping(zipCode) {
+  calcularShipping(zipCode) {
     const currentZipcode = zipCode ?? this.client.zipCode;
-    if (this.client.zipCode.charAt(0) <= 4) {
+    if (currentZipcode.charAt(0) <= 4) {
       return 5;
-    } else if (
-      this.client.zipCode.charAt(0) >= 5 &&
-      this.client.zipCode.charAt(0) <= 9
-    ) {
+    } else if (currentZipcode.charAt(0) >= 5 && currentZipcode.charAt(0) <= 9) {
       return 10;
     } else {
       throw new Error("Cep inválido!");
@@ -126,9 +123,9 @@ class OrderDelivery extends Order {
 const pedido = new Order();
 const pizza = new Product(1, "Pizza doce");
 
-const cliente = new Client();
-const pedidoDelivery = new OrderDelivery(Client);
+const cliente = new Client(1, "Elis", "Rua Ciro", "38405-250", true);
+const pedidoDelivery = new OrderDelivery(cliente);
 
-console.log(OrderDelivery.calcularShipping());
+console.log(pedidoDelivery.calcularShipping());
 
 pedido.addProduct(pizza);
